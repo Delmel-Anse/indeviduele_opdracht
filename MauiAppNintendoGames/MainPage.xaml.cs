@@ -16,16 +16,24 @@ namespace MauiAppNintendoGames
         private async void OnButtonClick(object sender, EventArgs e)
         {
             RestService restService = new RestService();
-            LstGames.IsVisible = true;
             try
             {
                 // GET request to fetch NDS games
                 string jsonResponse = await restService.GetAsync("NDS");
 
                 // Deserialize JSON response into a list of NdsGame objects
-                List<NdsGame> ndsGames = JsonSerializer.Deserialize<List<NdsGame>>(jsonResponse);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                List<NdsGame> ndsGames = JsonSerializer.Deserialize<List<NdsGame>>(jsonResponse, options);
+
+                // Log the JSON response for debugging
+                Console.WriteLine(jsonResponse);
+
                 // Use the data as needed, for example, bind it to a ListView
                 LstGames.ItemsSource = ndsGames;
+                LstGames.IsVisible = true;
             }
             catch (Exception ex)
             {

@@ -58,6 +58,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\nds.png" />
+	  <None Remove="Resources\Images\ndscard.png" />
 	</ItemGroup>
 
 	<ItemGroup>
